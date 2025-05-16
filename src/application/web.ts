@@ -1,0 +1,22 @@
+import express from "express";
+import cors from "cors";
+import { errorMiddleware } from "../middleware/error-middleware";
+import { httpLogger } from "../middleware/http-logger-middleware";
+import { errorResponse } from "../response/response";
+import cookieParser from "cookie-parser";
+import { setupSwagger } from "../apidocs/swagger";
+import dotenv from "dotenv";
+import { mainRouter } from "../route/main-route";
+dotenv.config();
+export const web = express();
+web.use(express.json());
+web.use(cookieParser());
+web.use(cors({ credentials: true, origin: `${process.env.CLIENT_URL}` }));
+web.use(express.static("public"));
+web.use(mainRouter);
+web.use(httpLogger);
+setupSwagger(web);
+web.use((req, res) => {
+  res.status(404).json(errorResponse("Request Tidak Ada", 404));
+});
+web.use(errorMiddleware);
