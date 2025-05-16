@@ -1,9 +1,9 @@
 {
-  "name": "@muhammadisa226/express-ts-prisma-starter-kit",
-"version": "1.0.2",
+  "name": "create-exp-ts-prisma-starter-kit",
+  "version": "1.0.3",
   "description": "CLI untuk membuat proyek Express + TypeScript + Prisma",
   "bin": {
-    "create-express-prisma-ts": "bin/index.js"
+    "create-exp-ts-prisma-starter-kit": "bin/index.js"
   },
   "author": "Muhammad Isa Nuruddin",
   "homepage": "https://github.com/muhammadisa-n/express-prisma-ts-starter-kit#readme",
@@ -16,11 +16,15 @@
   },
   "license": "ISC",
   "keywords": [
-    "cli",
     "express",
     "typescript",
     "prisma",
-    "starter",
     "api"
+  ],
+  "files": [
+    "bin",
+    "template",
+    "README.md",
+    "LICENSE"
   ]
 }
