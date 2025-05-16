@@ -3,7 +3,7 @@ import { loginRequest, CreateUserRequest } from "../request/user-request";
 import { successResponse, successUpdateResponse } from "../response/response";
 
 import dotenv from "dotenv";
-import { AuthService } from "../service/auth-service";
+import { AuthService } from "../services/auth-service";
 import { UpdateUserRequest } from "../request/user-request";
 import { UserRequest } from "../utils/type-request";
 dotenv.config();

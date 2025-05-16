@@ -6,7 +6,7 @@ import { errorResponse } from "../response/response";
 import cookieParser from "cookie-parser";
 import { setupSwagger } from "../apidocs/swagger";
 import dotenv from "dotenv";
-import { mainRouter } from "../route/main-route";
+import { mainRouter } from "../routes/main-route";
 dotenv.config();
 export const web = express();
 web.use(express.json());

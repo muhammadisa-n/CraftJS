@@ -10,29 +10,25 @@
   "license": "UNLICENSED",
   "main": "main.js",
   "scripts": {
-    "start": "node dist/main.js",
-    "start-dev": "nodemon dist/main.js",
-    "dev": "nodemon ./src/main.ts",
-    "build": "npx tsc",
-    "test": "jest -i",
-    "migrate:run": "npx prisma migrate dev",
-    "generate": "npx prisma generate",
-    "migrate:deploy": "npx prisma migrate deploy",
-    "migrate:fresh": "npx prisma migrate reset",
-    "migrate:seed": "tsx prisma/seed.ts"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "craft": "ts-node craft.ts",
+    "start": "npm run craft start",
+    "start-dev": "npm run craft start-dev",
+    "dev": "npm run craft dev",
+    "build": "npm run craft build",
+    "test": "npm run craft run:test"
   },
   "jest": {
     "transform": {
       "^.+\\.[t|j]sx?$": "babel-jest"
     }
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "argon2": "^0.41.1",
-    "chalk": "^5.4.1",
+    "chalk": "^4.1.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -47,7 +43,7 @@
     "zod": "^3.24.3"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-env": "^7.27.2",
     "@babel/preset-typescript": "^7.27.0",
     "@jest/globals": "^29.7.0",
     "@types/argon2": "^0.14.1",
@@ -58,6 +54,7 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/luxon": "^3.6.2",
+    "@types/node": "^22.15.18",
     "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
@@ -67,6 +64,7 @@
     "prettier": "^3.5.3",
     "prisma": "^6.6.0",
     "supertest": "^7.1.0",
+    "ts-jest": "^29.3.4",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"

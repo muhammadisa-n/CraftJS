@@ -2,7 +2,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
 const { spawnSync } = require("child_process");
 const projectName = process.argv[2];
 
@@ -46,7 +45,6 @@ const copyRecursiveSync = (src, dest) => {
 console.log(`🚀 Creating project in ./${projectName}`);
 copyRecursiveSync(templatePath, targetPath);
 
-const generateSecret = () => crypto.randomBytes(16).toString("hex");
 const envContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
 TZ="Asia/Jakarta"
@@ -55,8 +53,8 @@ DATABASE_URL="mysql://root:@localhost:3306/${projectName}"
 BASE_URL="http://localhost:3000"
 BASE_API_URL="http://localhost:3000/api"
 PORT=3000
-JWT_SECRET_ACCESS_TOKEN=${generateSecret()}
-JWT_SECRET_REFRESH_TOKEN=${generateSecret()}
+JWT_SECRET_ACCESS_TOKEN=
+JWT_SECRET_REFRESH_TOKEN=
 `;
 const envExampleContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
@@ -72,34 +70,36 @@ JWT_SECRET_REFRESH_TOKEN=
 
 const readmeContent = `# ${projectName}
 
+# Show All Command Craft
+
+\`\`\`shell
+npm run craft help
+\`\`\`
+
 # Setup Project
 
 \`\`\`shell
-npm install
+npm run craft generate
 \`\`\`
 
 \`\`\`shell
-npm run generate
-\`\`\`
-
-\`\`\`shell
-npm run migrate:run
+npm run craft db:migrate
 \`\`\`
 
 # Run Development
 
 \`\`\`shell
-npm run dev
+npm run craft dev
 \`\`\`
 
 # Build To Production
 
 \`\`\`shell
-npm run build
+npm run craft build
 \`\`\`
 
 \`\`\`shell
-npm start
+npm run craft start
 \`\`\`
 `;
 
@@ -131,7 +131,38 @@ dist
   );
 }
 
+console.log("📦 Installing dependencies...");
+const install = spawnSync("npm", ["install"], {
+  cwd: targetPath,
+  stdio: "inherit",
+});
+
+if (install.status !== 0) {
+  console.warn("⚠️ npm install failed.");
+}
+
+// Generate app key
+console.log("🔑 Generating secret keys...");
+const keyGenerate = spawnSync("npm", ["run", "craft", "key:generate"], {
+  cwd: targetPath,
+  stdio: "inherit",
+});
+
+if (keyGenerate.status !== 0) {
+  console.warn("⚠️ Failed to generate key.");
+}
+
+console.log("🚀 Generating prisma...");
+const prismaGenerate = spawnSync("npm", ["run", "craft", "db:generate"], {
+  cwd: targetPath,
+  stdio: "inherit",
+});
+
+if (prismaGenerate.status !== 0) {
+  console.warn("⚠️ Failed to generate prisma.");
+}
+
 console.log("\n✅ Done!");
 console.log(
-  `\nNext steps:\n  cd ${projectName}\n  npm install\n  npm run generate\n  npm run migrate:run \n  npm run dev`
+  `\nNext steps:\n  cd ${projectName}\n    npm run  craft db:migrate \n  npm run craft dev`
 );

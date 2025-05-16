@@ -4,7 +4,7 @@ import {
   ListUserRequest,
   UpdateUserRequest,
 } from "../request/user-request";
-import { UserService } from "../service/user-service";
+import { UserService } from "../services/user-service";
 import {
   successCreateResponse,
   successDeleteResponse,

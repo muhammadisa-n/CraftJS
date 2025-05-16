@@ -1,3 +1,9 @@
+# Show All Command Craft
+
+```shell
+npm run craft help
+```
+
 # Setup Project
 
 ```
@@ -5,29 +11,21 @@ npx @muhammadisa226/create-express-ts-prisma-starter-kit@latest my-app
 ```
 
 ```shell
-npm install
-```
-
-```shell
-npm run generate
-```
-
-```shell
-npm run migrate:run
+npm run craft db:migrate
 ```
 
 # Run Development
 
 ```shell
-npm run dev
+npm run craft dev
 ```
 
 # Build To Production
 
 ```shell
-npm run build
+npm run craft build
 ```
 
 ```shell
-npm start
+npm run craft start
 ```
