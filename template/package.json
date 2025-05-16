@@ -1,5 +1,6 @@
 {
   "name": "express-typescript-prisma-starter-kit",
+  "description": "A pragmatic backend framework powered by **Express**, **TypeScript**, and **Prisma** — designed for rapid development, simplicity, and scalability.",
   "version": "1.0.0",
   "keywords": [
     "express",
