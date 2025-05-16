@@ -9,11 +9,15 @@ npm install
 ```
 
 ```shell
-npx prisma generate
+npm run generate
 ```
 
 ```shell
-npx prisma migrate dev
+npx run migate:run
+```
+
+```shell
+npx run migrate:seed
 ```
 
 # Run Development
