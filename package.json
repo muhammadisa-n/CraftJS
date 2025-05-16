@@ -1,6 +1,6 @@
 {
   "name": "@muhammadisa226/craftjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A pragmatic backend framework powered by **Express**, **TypeScript**, and **Prisma** — designed for rapid development, simplicity, and scalability.",
   "bin": {
     "create-craftjs": "bin/index.js"

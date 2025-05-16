@@ -7,9 +7,7 @@ const projectName = process.argv[2];
 
 if (!projectName) {
   console.error("❌ Please provide a project folder name.");
-  console.error(
-    "Example: npx @muhammadisa226/create-craftjs@latest my-app"
-  );
+  console.error("Example: npx @muhammadisa226/create-craftjs@latest my-app");
   process.exit(1);
 }
 
@@ -76,42 +74,13 @@ JWT_SECRET_ACCESS_TOKEN=
 JWT_SECRET_REFRESH_TOKEN=
 `;
 
-const readmeContent = `# ${projectName}
-# Setup Project
+const sourceReadmePath = path.join(__dirname, "..", "README.md"); // path README di root template
+const targetReadmePath = path.join(targetPath, "README.md");
 
-\`\`\`shell
-npm run install
-npm run craft key:generate
-npm run craft db:generate
-npm run craft db:migrate
-\`\`\`
-
-# Run Development
-
-\`\`\`shell
-npm run craft dev
-\`\`\`
-
-# Build To Production
-
-\`\`\`shell
-npm run craft build
-\`\`\`
-
-\`\`\`shell
-npm run craft start
-\`\`\`
-
-# Show All Command Craft
-
-\`\`\`shell
-npm run craft help
-\`\`\`
-
-`;
-
-fs.writeFileSync(path.join(targetPath, "README.md"), readmeContent);
-console.log("📄 README.md file created");
+if (fs.existsSync(sourceReadmePath)) {
+  fs.copyFileSync(sourceReadmePath, targetReadmePath);
+  console.log("📄 README.md file copied from template");
+}
 
 console.log(`📦 Generating .env and .env.example files...`);
 fs.writeFileSync(path.join(targetPath, ".env"), envContent);
@@ -140,5 +109,5 @@ dist
 
 console.log("\n✅ Done!");
 console.log(
-  `\nNext steps:\n  cd ${projectName}\n  npm run craft db:migrate \n  npm run craft dev`
+  `\nNext steps:\n  cd ${projectName}\n  npm install\n npm run craft db:migrate\n  npm run craft dev`
 );
