@@ -1,11 +1,11 @@
 {
-  "name": "express-ts-prisma-starter-kit",
+  "name": "create-express-prisma-ts",
   "version": "1.0.0",
-  "keywords": [
-    "gateone",
-    "sso",
-    "api"
-  ],
+  "description": "CLI untuk membuat proyek Express + TypeScript + Prisma",
+  "bin": {
+    "create-express-prisma-ts": "bin/index.js"
+  },
+  "author": "Muhammad Isa Nuruddin",
   "homepage": "https://github.com/muhammadisa-n/express-prisma-ts-starter-kit#readme",
   "bugs": {
     "url": "https://github.com/muhammadisa-n/express-prisma-ts-starter-kit/issues"
@@ -15,68 +15,14 @@
     "url": "git+https://github.com/muhammadisa-n/express-prisma-ts-starter-kit.git"
   },
   "license": "ISC",
-  "author": "Muhammad Isa Nuruddin",
-  "main": "main.js",
-  "scripts": {
-    "start": "node dist/main.js",
-    "start-dev": "nodemon dist/main.js",
-    "dev": "nodemon ./src/main.ts",
-    "build": "npx tsc",
-    "test": "jest -i",
-    "migrate:run": "npx prisma migrate dev",
-    "migrate:deploy": "npx prisma migrate deploy",
-    "migrate:fresh": "npx prisma migrate reset",
-    "migrate:seed": "tsx prisma/seed.ts",
-    "prisma:generate": "npx prisma generate"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.[t|j]sx?$": "babel-jest"
-    }
-  },
+  "keywords": [
+    "cli",
+    "express",
+    "typescript",
+    "prisma",
+    "starter"
+  ],
   "dependencies": {
-    "@prisma/client": "^6.6.0",
-    "argon2": "^0.41.1",
-    "chalk": "^5.4.1",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "crypto": "^1.0.1",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "luxon": "^3.6.1",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-themes": "^1.4.3",
-    "swagger-ui-express": "^5.0.1",
-    "winston": "^3.17.0",
-    "zod": "^3.24.3"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.26.9",
-    "@babel/preset-typescript": "^7.27.0",
-    "@jest/globals": "^29.7.0",
-    "@types/argon2": "^0.14.1",
-    "@types/cookie-parser": "^1.4.8",
-    "@types/cors": "^2.8.17",
-    "@types/dotenv": "^6.1.1",
-    "@types/express": "^5.0.1",
-    "@types/jest": "^29.5.14",
-    "@types/jsonwebtoken": "^9.0.9",
-    "@types/luxon": "^3.6.2",
-    "@types/supertest": "^6.0.3",
-    "@types/swagger-jsdoc": "^6.0.4",
-    "@types/swagger-ui-express": "^4.1.8",
-    "babel-jest": "^29.7.0",
-    "jest": "^29.7.0",
-    "nodemon": "^3.1.9",
-    "prettier": "^3.5.3",
-    "prisma": "^6.6.0",
-    "supertest": "^7.1.0",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.19.4",
-    "typescript": "^5.8.3"
+    "inquirer": "^12.6.1"
   }
 }
