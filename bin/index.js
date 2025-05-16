@@ -9,7 +9,7 @@ const projectName = process.argv[2];
 if (!projectName) {
   console.error("❌ Please provide a project folder name.");
   console.error(
-    "Example: npx @muhammadisa226/create-express-ts-prisma-starter-kit my-app"
+    "Example: npx @muhammadisa226/create-express-ts-prisma-starter-kit@latest my-app"
   );
   process.exit(1);
 }

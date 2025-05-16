@@ -1,7 +1,7 @@
 # Setup Project
 
 ```
-npx @muhammadisa226/create-express-ts-prisma-starter-kit my-app
+npx @muhammadisa226/create-express-ts-prisma-starter-kit@latest my-app
 ```
 
 ```shell
