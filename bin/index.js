@@ -2,8 +2,8 @@
 
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const { spawnSync } = require("child_process");
-
 const projectName = process.argv[2];
 
 if (!projectName) {
@@ -46,23 +46,43 @@ const copyRecursiveSync = (src, dest) => {
 console.log(`🚀 Creating project in ./${projectName}`);
 copyRecursiveSync(templatePath, targetPath);
 
+const generateSecret = () => crypto.randomBytes(16).toString("hex");
 const envContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
 TZ="Asia/Jakarta"
 DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
-DATABASE_URL="http://localhost:3000/"
+DATABASE_URL="mysql://root:@localhost:3306/${projectName}"
+BASE_URL="http://localhost:3000"
+BASE_API_URL="http://localhost:3000/api"
+PORT=3000
+JWT_SECRET_ACCESS_TOKEN=${generateSecret()}
+JWT_SECRET_REFRESH_TOKEN=${generateSecret()}
+`;
+const envExampleContent = `APP_NAME="${projectName}"
+NODE_ENV="development"
+TZ="Asia/Jakarta"
+DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
+DATABASE_URL=
 BASE_URL=
 BASE_API_URL=
-PORT=3000
+PORT=
 JWT_SECRET_ACCESS_TOKEN=
-JWT_SECRET_VERIFY=
 JWT_SECRET_REFRESH_TOKEN=
 `;
-
+console.log(`📦 Generating .env and .env.example files...`);
 fs.writeFileSync(path.join(targetPath, ".env"), envContent);
-fs.writeFileSync(path.join(targetPath, ".env.example"), envContent);
+fs.writeFileSync(path.join(targetPath, ".env.example"), envExampleContent);
 
-// Create .gitignore if not exists
+console.log("🔧 Initializing git repository...");
+const gitInit = spawnSync("git", ["init"], {
+  cwd: targetPath,
+  stdio: "inherit",
+});
+
+if (gitInit.status !== 0) {
+  console.warn("⚠️ Git initialization failed.");
+}
+
 const gitignorePath = path.join(targetPath, ".gitignore");
 if (!fs.existsSync(gitignorePath)) {
   fs.writeFileSync(
