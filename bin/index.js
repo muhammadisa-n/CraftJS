@@ -50,7 +50,7 @@ const envContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
 TZ="Asia/Jakarta"
 DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
-DATABASE_URL=
+DATABASE_URL="http://localhost:3000/"
 BASE_URL=
 BASE_API_URL=
 PORT=3000
