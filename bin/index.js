@@ -45,6 +45,14 @@ const copyRecursiveSync = (src, dest) => {
 console.log(`🚀 Creating project in ./${projectName}`);
 copyRecursiveSync(templatePath, targetPath);
 
+const packageJsonPath = path.join(targetPath, "package.json");
+if (fs.existsSync(packageJsonPath)) {
+  const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+  pkg.name = projectName;
+  fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
+  console.log(`📦 Updated package.json name to "${projectName}"`);
+}
+
 const envContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
 TZ="Asia/Jakarta"

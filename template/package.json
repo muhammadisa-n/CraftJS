@@ -12,7 +12,6 @@
   "scripts": {
     "craft": "ts-node craft.ts",
     "start": "npm run craft start",
-    "start-dev": "npm run craft start-dev",
     "dev": "npm run craft dev",
     "build": "npm run craft build",
     "test": "npm run craft run:test"
