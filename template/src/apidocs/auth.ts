@@ -1,9 +1,3 @@
-/**
- * @swagger
- * tags:
- *   name: Auth
- *   description: Endpoint for manage Authentication
- */
 // Register
 /**
  * @swagger

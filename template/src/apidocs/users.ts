@@ -1,11 +1,5 @@
 /**
  * @swagger
- * tags:
- *   name:Users
- *   description: Endpoint for manage Users
- */
-/**
- * @swagger
  * /api/services/users:
  *   get:
  *     summary: Mengambil daftar semua user
