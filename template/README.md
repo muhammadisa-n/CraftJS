@@ -1,13 +1,11 @@
-# Express Prisma Typescript Starter Kit
-
 # Setup Project
 
 ```
-cp .env.example .env
+npx create-exp-ts-prisma-starter-kit my-app
 ```
 
-```shell
-npm install
+```
+cp .env.example .env
 ```
 
 ```shell
