@@ -33,6 +33,7 @@ cd my-app
 
 ```bash
 npm install
+npm run craft key:generate
 npm run craft generate
 npm run craft db:migrate
 npm run craft dev

@@ -109,5 +109,5 @@ dist
 
 console.log("\n✅ Done!");
 console.log(
-  `\nNext steps:\n  cd ${projectName}\n  npm install\n npm run craft db:migrate\n  npm run craft dev`
+  `\nNext steps:\n cd ${projectName}\n npm install\n npm run craft key:generate\n npm run craft db:generate\n npm run craft db:migrate\n npm run craft dev`
 );
