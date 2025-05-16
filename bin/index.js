@@ -79,10 +79,9 @@ npm run craft help
 # Setup Project
 
 \`\`\`shell
-npm run craft generate
-\`\`\`
-
-\`\`\`shell
+npm run install
+npm run craft key:generate
+npm run craft db:generate
 npm run craft db:migrate
 \`\`\`
 
@@ -131,38 +130,7 @@ dist
   );
 }
 
-console.log("📦 Installing dependencies...");
-const install = spawnSync("npm", ["install"], {
-  cwd: targetPath,
-  stdio: "inherit",
-});
-
-if (install.status !== 0) {
-  console.warn("⚠️ npm install failed.");
-}
-
-// Generate app key
-console.log("🔑 Generating secret keys...");
-const keyGenerate = spawnSync("npm", ["run", "craft", "key:generate"], {
-  cwd: targetPath,
-  stdio: "inherit",
-});
-
-if (keyGenerate.status !== 0) {
-  console.warn("⚠️ Failed to generate key.");
-}
-
-console.log("🚀 Generating prisma...");
-const prismaGenerate = spawnSync("npm", ["run", "craft", "db:generate"], {
-  cwd: targetPath,
-  stdio: "inherit",
-});
-
-if (prismaGenerate.status !== 0) {
-  console.warn("⚠️ Failed to generate prisma.");
-}
-
 console.log("\n✅ Done!");
 console.log(
-  `\nNext steps:\n  cd ${projectName}\n    npm run  craft db:migrate \n  npm run craft dev`
+  `\nNext steps:\n  cd ${projectName}\n    npm run craft db:migrate \n  npm run craft dev`
 );
