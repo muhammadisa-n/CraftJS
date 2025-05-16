@@ -1,6 +1,6 @@
 {
   "name": "create-exp-ts-prisma-starter-kit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "CLI untuk membuat proyek Express + TypeScript + Prisma",
   "bin": {
     "create-exp-ts-prisma-starter-kit": "bin/index.js"

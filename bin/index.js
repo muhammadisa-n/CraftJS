@@ -61,6 +61,7 @@ JWT_SECRET_VERIFY=
 JWT_SECRET_REFRESH_TOKEN=
 `;
 
+fs.writeFileSync(path.join(targetPath, ".env"), envContent);
 fs.writeFileSync(path.join(targetPath, ".env.example"), envContent);
 
 // Tambahkan .gitignore jika belum ada
@@ -75,20 +76,7 @@ dist
   );
 }
 
-// Install dependencies
-try {
-  console.log("📦 Menginstal dependencies...");
-  spawnSync("npm", ["install"], {
-    stdio: "inherit",
-    cwd: targetPath,
-    shell: true,
-  });
-} catch (err) {
-  console.error("❌ Gagal menginstal dependencies:", err.message);
-  process.exit(1);
-}
-
 console.log("\n✅ Selesai!");
 console.log(
-  `\nLangkah berikutnya:\n  cd ${projectName}\n  npx prisma gemerate dev\n npx prisma migrate dev\n  npm run dev`
+  `\nLangkah berikutnya:\n  cd ${projectName}\n  npm install\n npx prisma gemerate\n npx prisma migrate dev\n  npm run dev`
 );

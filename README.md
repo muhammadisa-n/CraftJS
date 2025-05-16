@@ -9,6 +9,10 @@ cp .env.example .env
 ```
 
 ```shell
+npm install
+```
+
+```shell
 npx prisma generate
 ```
 
