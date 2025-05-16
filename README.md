@@ -4,12 +4,6 @@
 npx @muhammadisa226/create-express-ts-prisma-starter-kit@latest my-app
 ```
 
-# Show All Command Craft
-
-```shell
-npm run craft help
-```
-
 # Setup Project
 
 ```shell
@@ -33,4 +27,10 @@ npm run craft build
 
 ```shell
 npm run craft start
+```
+
+# Show All Command Craft
+
+```shell
+npm run craft help
 ```

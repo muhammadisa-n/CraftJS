@@ -69,13 +69,6 @@ JWT_SECRET_REFRESH_TOKEN=
 `;
 
 const readmeContent = `# ${projectName}
-
-# Show All Command Craft
-
-\`\`\`shell
-npm run craft help
-\`\`\`
-
 # Setup Project
 
 \`\`\`shell
@@ -100,6 +93,13 @@ npm run craft build
 \`\`\`shell
 npm run craft start
 \`\`\`
+
+# Show All Command Craft
+
+\`\`\`shell
+npm run craft help
+\`\`\`
+
 `;
 
 fs.writeFileSync(path.join(targetPath, "README.md"), readmeContent);
