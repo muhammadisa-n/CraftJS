@@ -104,4 +104,4 @@ my-app/
 
 ---
 
-Made by [@muhammadisa226](https://github.com/muhammadisa226)
+Made by [@muhammadisa-n](https://github.com/muhammadisa-n)
