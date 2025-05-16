@@ -1,6 +1,6 @@
 {
   "name": "@muhammadisa226/create-express-ts-prisma-starter-kit",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Starter Kit Express + TypeScript + Prisma",
   "bin": {
     "@muhammadisa226/create-express-ts-prisma-starter-kit": "bin/index.js"
