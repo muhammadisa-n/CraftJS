@@ -13,11 +13,7 @@ npm run generate
 ```
 
 ```shell
-npm run migate:run
-```
-
-```shell
-npm run migrate:seed
+npm run migrate:run
 ```
 
 # Run Development

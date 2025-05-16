@@ -69,6 +69,43 @@ PORT=
 JWT_SECRET_ACCESS_TOKEN=
 JWT_SECRET_REFRESH_TOKEN=
 `;
+
+const readmeContent = `# ${projectName}
+
+# Setup Project
+
+\`\`\`shell
+npm install
+\`\`\`
+
+\`\`\`shell
+npm run generate
+\`\`\`
+
+\`\`\`shell
+npm run migrate:run
+\`\`\`
+
+# Run Development
+
+\`\`\`shell
+npm run dev
+\`\`\`
+
+# Build To Production
+
+\`\`\`shell
+npm run build
+\`\`\`
+
+\`\`\`shell
+npm start
+\`\`\`
+`;
+
+fs.writeFileSync(path.join(targetPath, "README.md"), readmeContent);
+console.log("📄 README.md file created");
+
 console.log(`📦 Generating .env and .env.example files...`);
 fs.writeFileSync(path.join(targetPath, ".env"), envContent);
 fs.writeFileSync(path.join(targetPath, ".env.example"), envExampleContent);
@@ -92,13 +129,6 @@ if (!fs.existsSync(gitignorePath)) {
 dist
 `
   );
-}
-
-const readmeSrc = path.join(__dirname, "..", "README.md");
-const readmeDest = path.join(templatePath, "README.md");
-
-if (fs.existsSync(readmeSrc) && !fs.existsSync(readmeDest)) {
-  fs.copyFileSync(readmeSrc, readmeDest);
 }
 
 console.log("\n✅ Done!");
