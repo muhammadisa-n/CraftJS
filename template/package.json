@@ -1,14 +1,6 @@
 {
   "name": "express-typescript-prisma-starter-kit",
   "version": "1.0.0",
-  "homepage": "https://github.com/muhammadisa-n/express-prisma-ts-starter-kit#readme",
-  "bugs": {
-    "url": "https://github.com/muhammadisa-n/express-prisma-ts-starter-kit/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/muhammadisa-n/express-prisma-ts-starter-kit.git"
-  },
   "keywords": [
     "express",
     "typescript",
@@ -16,7 +8,6 @@
     "api"
   ],
   "license": "UNLICENSED",
-  "author": "Muhammad Isa Nuruddin",
   "main": "main.js",
   "scripts": {
     "start": "node dist/main.js",
