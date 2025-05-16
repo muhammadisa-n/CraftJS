@@ -4,18 +4,19 @@ const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
 
-// Ambil nama project dari argv
 const projectName = process.argv[2];
 
 if (!projectName) {
-  console.error("❌ Harap masukkan nama folder proyek.");
-  console.error("Contoh: npx create-exp-ts-prisma-starter-kit my-app");
+  console.error("❌ Please provide a project folder name.");
+  console.error(
+    "Example: npx @muhammadisa226/create-express-ts-prisma-starter-kit my-app"
+  );
   process.exit(1);
 }
 
 if (!/^[a-zA-Z0-9-_]+$/.test(projectName)) {
   console.error(
-    "❌ Nama proyek hanya boleh huruf, angka, dash (-), dan underscore (_)."
+    "❌ Project name can only contain letters, numbers, dashes (-), and underscores (_)."
   );
   process.exit(1);
 }
@@ -24,11 +25,9 @@ const targetPath = path.resolve(process.cwd(), projectName);
 const templatePath = path.join(__dirname, "..", "template");
 
 if (fs.existsSync(targetPath)) {
-  console.error(`❌ Folder "${projectName}" sudah ada.`);
+  console.error(`❌ Folder "${projectName}" already exists.`);
   process.exit(1);
 }
-
-// Copy template ke folder baru
 const copyRecursiveSync = (src, dest) => {
   const entries = fs.readdirSync(src, { withFileTypes: true });
   fs.mkdirSync(dest, { recursive: true });
@@ -44,10 +43,9 @@ const copyRecursiveSync = (src, dest) => {
   }
 };
 
-console.log(`🚀 Membuat proyek di ./${projectName}`);
+console.log(`🚀 Creating project in ./${projectName}`);
 copyRecursiveSync(templatePath, targetPath);
 
-// Generate file .env
 const envContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
 TZ="Asia/Jakarta"
@@ -64,7 +62,7 @@ JWT_SECRET_REFRESH_TOKEN=
 fs.writeFileSync(path.join(targetPath, ".env"), envContent);
 fs.writeFileSync(path.join(targetPath, ".env.example"), envContent);
 
-// Tambahkan .gitignore jika belum ada
+// Create .gitignore if not exists
 const gitignorePath = path.join(targetPath, ".gitignore");
 if (!fs.existsSync(gitignorePath)) {
   fs.writeFileSync(
@@ -76,7 +74,14 @@ dist
   );
 }
 
-console.log("\n✅ Selesai!");
+const readmeSrc = path.join(__dirname, "..", "README.md");
+const readmeDest = path.join(templatePath, "README.md");
+
+if (fs.existsSync(readmeSrc) && !fs.existsSync(readmeDest)) {
+  fs.copyFileSync(readmeSrc, readmeDest);
+}
+
+console.log("\n✅ Done!");
 console.log(
-  `\nLangkah berikutnya:\n  cd ${projectName}\n  npm install\n npx prisma gemerate\n npx prisma migrate dev\n  npm run dev`
+  `\nNext steps:\n  cd ${projectName}\n  npm install\n  npm run generate\n  npm run migrate:run \n  npm run dev`
 );
