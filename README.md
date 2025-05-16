@@ -1,9 +1,7 @@
-# Express Prisma Typescript Starter Kit
-
 # Setup Project
 
 ```
-DATABASE_URL="mysql://username:password@host:port/databasename"
+cp .env.example .env
 ```
 
 ```shell

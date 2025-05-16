@@ -9,6 +9,14 @@
     "type": "git",
     "url": "git+https://github.com/muhammadisa-n/express-prisma-ts-starter-kit.git"
   },
+  "keywords": [
+    "cli",
+    "express",
+    "typescript",
+    "prisma",
+    "starter",
+    "api"
+  ],
   "license": "ISC",
   "author": "Muhammad Isa Nuruddin",
   "main": "main.js",

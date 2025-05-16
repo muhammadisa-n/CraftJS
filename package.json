@@ -1,6 +1,6 @@
 {
-  "name": "create-express-prisma-ts",
-  "version": "1.0.0",
+  "name": "@muhammadisa226/express-ts-prisma-starter-kit",
+"version": "1.0.2",
   "description": "CLI untuk membuat proyek Express + TypeScript + Prisma",
   "bin": {
     "create-express-prisma-ts": "bin/index.js"
@@ -20,9 +20,7 @@
     "express",
     "typescript",
     "prisma",
-    "starter"
-  ],
-  "dependencies": {
-    "inquirer": "^12.6.1"
-  }
+    "starter",
+    "api"
+  ]
 }
