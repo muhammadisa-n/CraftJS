@@ -1,11 +1,7 @@
 # Setup Project
 
 ```
-npx create-exp-ts-prisma-starter-kit my-app
-```
-
-```
-cp .env.example .env
+npx @muhammadisa226/create-express-ts-prisma-starter-kit my-app
 ```
 
 ```shell
@@ -13,11 +9,14 @@ npm install
 ```
 
 ```shell
-npx prisma generate
+npm run generate
 ```
 
 ```shell
-npx prisma migrate dev
+npx run migate:run
+```
+```shell
+npx run migrate:seed
 ```
 
 # Run Development
@@ -35,7 +34,3 @@ npm run build
 ```shell
 npm start
 ```
-
-## License
-
-This project is licensed under the [ISC License](./LICENSE).
