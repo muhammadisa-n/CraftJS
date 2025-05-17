@@ -5,10 +5,16 @@ import { userRouter } from "./user-route";
 
 export const mainRouter = express.Router();
 
+mainRouter.get("/", (req, res) => {
+  res
+    .status(200)
+    .json(successResponse(`${process.env.APP_NAME} is running`, 200))
+    .end();
+});
 mainRouter.get("/api", (req, res) => {
   res
     .status(200)
-    .json(successResponse(`${process.env.APP_NAME} api Is Running`, 200))
+    .json(successResponse(`${process.env.APP_NAME} api is running`, 200))
     .end();
 });
 mainRouter.use(authRouter);

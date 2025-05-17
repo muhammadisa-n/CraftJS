@@ -8,7 +8,7 @@ const swaggerOptions: swaggerJSDoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: `${process.env.APP_NAME} Is Running`,
+      title: `${process.env.APP_NAME} Api Documentation`,
       version: "1.0.0",
     },
     servers: [
@@ -129,7 +129,7 @@ export function setupSwagger(app: Express) {
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec, {
       customCss: themeCss,
-      customSiteTitle: `${process.env.APP_NAME} Is Running`,
+      customSiteTitle: `${process.env.APP_NAME}  Api Documentation`,
     })
   );
 }

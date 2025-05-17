@@ -74,12 +74,12 @@ JWT_SECRET_ACCESS_TOKEN=
 JWT_SECRET_REFRESH_TOKEN=
 `;
 
-const sourceReadmePath = path.join(__dirname, "..", "README.md"); // path README di root template
+const sourceReadmePath = path.join(__dirname, "..", "README.md");
 const targetReadmePath = path.join(targetPath, "README.md");
 
 if (fs.existsSync(sourceReadmePath)) {
   fs.copyFileSync(sourceReadmePath, targetReadmePath);
-  console.log("📄 README.md file copied from template");
+  console.log("📄  Generating README.md...");
 }
 
 console.log(`📦 Generating .env and .env.example files...`);
