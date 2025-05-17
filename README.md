@@ -19,9 +19,9 @@ A starter kit backend framework powered by Express, TypeScript, EJS Engine, and 
 Open src/application/web.ts and uncomment the following lines:
 
 ```bash
-// import expressLayouts from "express-ejs-layouts";
-// import path from "path";
-// EJS View Engine Setup
+import expressLayouts from "express-ejs-layouts";
+import path from "path";
+
 web.set("view engine", "ejs");
 web.set("views", path.join(\_\_dirname, "..", "views"));
 web.use(expressLayouts);
