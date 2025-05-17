@@ -3,55 +3,78 @@
 const fs = require("fs");
 const path = require("path");
 const { spawnSync } = require("child_process");
-const projectName = process.argv[2];
+const readline = require("readline");
 
-if (!projectName) {
-  console.error("❌ Please provide a project folder name.");
-  console.error("Example: npx @muhammadisa226/craftjs@latest my-api");
-  process.exit(1);
-}
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-if (!/^[a-zA-Z0-9-_]+$/.test(projectName)) {
-  console.error(
-    "❌ Project name can only contain letters, numbers, dashes (-), and underscores (_)."
-  );
-  process.exit(1);
-}
-
-const targetPath = path.resolve(process.cwd(), projectName);
-const templatePath = path.join(__dirname, "..", "template");
-
-if (fs.existsSync(targetPath)) {
-  console.error(`❌ Folder "${projectName}" already exists.`);
-  process.exit(1);
-}
-const copyRecursiveSync = (src, dest) => {
-  const entries = fs.readdirSync(src, { withFileTypes: true });
-  fs.mkdirSync(dest, { recursive: true });
-
-  for (let entry of entries) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-    if (entry.isDirectory()) {
-      copyRecursiveSync(srcPath, destPath);
-    } else {
-      fs.copyFileSync(srcPath, destPath);
-    }
-  }
+const ask = (question) => {
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => resolve(answer.trim()));
+  });
 };
 
-console.log(`🚀 Creating project in ./${projectName}`);
-copyRecursiveSync(templatePath, targetPath);
+(async () => {
+  console.log("🚀 Welcome to CraftJS Project Creator!");
 
-const packageJsonPath = path.join(targetPath, "package.json");
-if (fs.existsSync(packageJsonPath)) {
-  const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-  pkg.name = projectName;
-  fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
-  console.log(`📦 Updated package.json name to "${projectName}"`);
-}
+  let projectName = process.argv[2];
 
-const envContent = `APP_NAME="${projectName}"
+  if (!projectName) {
+    projectName = await ask("📦 Enter your project name: ");
+    while (!projectName || !/^[a-zA-Z0-9-_]+$/.test(projectName)) {
+      console.log(
+        "❌ Invalid project name. Use only letters, numbers, - and _."
+      );
+      projectName = await ask("📦 Enter your project name: ");
+    }
+  } else {
+    if (!/^[a-zA-Z0-9-_]+$/.test(projectName)) {
+      console.error(
+        "❌ Project name can only contain letters, numbers, dashes (-), and underscores (_)."
+      );
+      rl.close();
+      process.exit(1);
+    }
+  }
+
+  const targetPath = path.resolve(process.cwd(), projectName);
+  const templatePath = path.join(__dirname, "..", "template");
+
+  if (fs.existsSync(targetPath)) {
+    console.error(`❌ Folder "${projectName}" already exists.`);
+    rl.close();
+    process.exit(1);
+  }
+
+  const copyRecursiveSync = (src, dest) => {
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+    fs.mkdirSync(dest, { recursive: true });
+
+    for (let entry of entries) {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+      if (entry.isDirectory()) {
+        copyRecursiveSync(srcPath, destPath);
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    }
+  };
+
+  console.log(`\n🚧 Creating project in ./${projectName}...`);
+  copyRecursiveSync(templatePath, targetPath);
+
+  const packageJsonPath = path.join(targetPath, "package.json");
+  if (fs.existsSync(packageJsonPath)) {
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+    pkg.name = projectName;
+    fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
+    console.log(`📦 Updated package.json name to "${projectName}"`);
+  }
+
+  const envContent = `APP_NAME="${projectName}"
 NODE_ENV="development"
 TZ="Asia/Jakarta"
 DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
@@ -62,52 +85,74 @@ PORT=3000
 JWT_SECRET_ACCESS_TOKEN=
 JWT_SECRET_REFRESH_TOKEN=
 `;
-const envExampleContent = `APP_NAME="${projectName}"
-NODE_ENV="development"
-TZ="Asia/Jakarta"
-DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
-DATABASE_URL=
-BASE_URL=
-BASE_API_URL=
-PORT=
-JWT_SECRET_ACCESS_TOKEN=
-JWT_SECRET_REFRESH_TOKEN=
-`;
 
-const sourceReadmePath = path.join(__dirname, "..", "README.md");
-const targetReadmePath = path.join(targetPath, "README.md");
+  const envExampleContent = envContent.replace(/=.*/g, "=");
 
-if (fs.existsSync(sourceReadmePath)) {
-  fs.copyFileSync(sourceReadmePath, targetReadmePath);
-  console.log("📄  Generating README.md...");
-}
+  const sourceReadmePath = path.join(__dirname, "..", "README.md");
+  const targetReadmePath = path.join(targetPath, "README.md");
 
-console.log(`📦 Generating .env and .env.example files...`);
-fs.writeFileSync(path.join(targetPath, ".env"), envContent);
-fs.writeFileSync(path.join(targetPath, ".env.example"), envExampleContent);
+  if (fs.existsSync(sourceReadmePath)) {
+    fs.copyFileSync(sourceReadmePath, targetReadmePath);
+    console.log("📄  Copied README.md...");
+  }
 
-console.log("🔧 Initializing git repository...");
-const gitInit = spawnSync("git", ["init"], {
-  cwd: targetPath,
-  stdio: "inherit",
-});
+  console.log("📝 Generating .env and .env.example...");
+  fs.writeFileSync(path.join(targetPath, ".env"), envContent);
+  fs.writeFileSync(path.join(targetPath, ".env.example"), envExampleContent);
 
-if (gitInit.status !== 0) {
-  console.warn("⚠️ Git initialization failed.");
-}
+  console.log("🔧 Initializing git repository...");
+  const gitInit = spawnSync("git", ["init"], {
+    cwd: targetPath,
+    stdio: "inherit",
+    shell: true,
+  });
 
-const gitignorePath = path.join(targetPath, ".gitignore");
-if (!fs.existsSync(gitignorePath)) {
-  fs.writeFileSync(
-    gitignorePath,
-    `node_modules
+  if (gitInit.status !== 0) {
+    console.warn("⚠️ Git initialization failed.");
+  }
+
+  const gitignorePath = path.join(targetPath, ".gitignore");
+  if (!fs.existsSync(gitignorePath)) {
+    fs.writeFileSync(
+      gitignorePath,
+      `node_modules
 .env
 dist
 `
-  );
-}
+    );
+  }
 
-console.log("\n✅ Done!");
-console.log(
-  `\nNext steps:\n cd ${projectName}\n npm install\n npm run craft key:generate\n npm run craft db:generate\n npm run craft db:migrate\n npm run craft dev`
-);
+  const installNow = await ask(
+    "📥 Do you want to install dependencies now? (yes/no): "
+  );
+  if (installNow.toLowerCase() === "yes" || installNow.toLowerCase() === "y") {
+    console.log("📦 Installing dependencies...");
+    const npmInstall = spawnSync("npm", ["install"], {
+      cwd: targetPath,
+      stdio: "inherit",
+      shell: true,
+    });
+
+    if (npmInstall.status !== 0) {
+      console.warn("⚠️ npm install failed.");
+      console.log("\n✅ Done!");
+      console.log(
+        `\nNext steps:\n cd ${projectName}\n npm install\n npm run craft key:generate\n npm run craft db:generate\n npm run craft db:migrate\n npm run craft dev`
+      );
+    } else {
+      console.log("✅ Dependencies installed successfully.");
+      console.log("\n✅ Done!");
+      console.log(
+        `\nNext steps:\n cd ${projectName}\n npm run craft key:generate\n npm run craft db:generate\n npm run craft db:migrate\n npm run craft dev`
+      );
+    }
+  } else {
+    console.log("ℹ️ Skipping dependency installation.");
+    console.log("\n✅ Done!");
+    console.log(
+      `\nNext steps:\n cd ${projectName}\n npm install\n npm run craft key:generate\n npm run craft db:generate\n npm run craft db:migrate\n npm run craft dev`
+    );
+  }
+
+  rl.close();
+})();
