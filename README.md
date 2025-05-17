@@ -1,6 +1,6 @@
 # CraftJS
 
-A pragmatic backend framework powered by **Express**, **TypeScript**, **EJS Engine**, and **Prisma** — designed for rapid development, simplicity, and scalability.
+A starter kit backend framework powered by Express, TypeScript, EJS Engine, and Prisma — designed for rapid development, simplicity, and scalability.
 
 ---
 
@@ -19,6 +19,8 @@ A pragmatic backend framework powered by **Express**, **TypeScript**, **EJS Engi
 Open src/application/web.ts and uncomment the following lines:
 
 ```bash
+// import expressLayouts from "express-ejs-layouts";
+// import path from "path";
 // EJS View Engine Setup
 web.set("view engine", "ejs");
 web.set("views", path.join(\_\_dirname, "..", "views"));
@@ -32,6 +34,14 @@ Then, go to src/routes/main-route.ts and uncomment this:
 mainRouter.get("/", (req, res) => {
 res.render("index", { title: "Home Page" });
 });
+```
+
+To enable log query in console, to src/application/database.ts and uncomment this:
+
+```bash
+ prismaClient.$on("query", (e) => {
+   logger.info(e);
+ });
 ```
 
 ## Getting Started

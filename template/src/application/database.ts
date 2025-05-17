@@ -26,7 +26,7 @@ export const prismaClient = new PrismaClient({
 prismaClient.$use(async (params, next) => {
   const result = await next(params);
 
-  const convertToJakarta = (date: unknown): string => {
+  const convertToYourTimeZone = (date: unknown): string => {
     if (!(date instanceof Date) || isNaN(date.getTime())) {
       return "";
     }
@@ -51,9 +51,9 @@ prismaClient.$use(async (params, next) => {
           ["created_at", "updated_at", "deleted_at"].includes(key) &&
           value instanceof Date
         ) {
-          newItem[key] = convertToJakarta(value);
+          newItem[key] = convertToYourTimeZone(value);
         } else if (typeof value === "object" && value !== null) {
-          newItem[key] = transformDates(value); // recursive
+          newItem[key] = transformDates(value);
         }
       }
       return newItem;
@@ -65,9 +65,9 @@ prismaClient.$use(async (params, next) => {
   return transformDates(result);
 });
 
-prismaClient.$on("query", (e) => {
-  logger.info(e);
-});
+// prismaClient.$on("query", (e) => {
+//   logger.info(e);
+// });
 prismaClient.$on("warn", (e) => {
   logger.warn(e);
 });
