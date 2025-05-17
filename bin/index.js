@@ -7,7 +7,7 @@ const projectName = process.argv[2];
 
 if (!projectName) {
   console.error("❌ Please provide a project folder name.");
-  console.error("Example: npx @muhammadisa226/create-craftjs@latest my-app");
+  console.error("Example: npx @muhammadisa226/craftjs@latest my-api");
   process.exit(1);
 }
 

@@ -20,7 +20,7 @@ A pragmatic backend framework powered by **Express**, **TypeScript**, and **Pris
 ### Scaffold a New Project
 
 ```bash
-npx @muhammadisa226/create-craftjs@latest my-app
+npx @muhammadisa226/craftjs@latest my-api
 ```
 
 ### Go to project folder
