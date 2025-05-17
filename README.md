@@ -106,7 +106,7 @@ my-app/
 | `craft start`           | Start production server       |
 | `craft dev`             | Run in development mode       |
 | `craft build`           | Build for production          |
-| `craft run:test`        | Run Jest tests                |
+| `craft test`            | Run Jest tests                |
 | `craft db:generate`     | Generate Prisma client        |
 | `craft db:migrate`      | Run Prisma migrations         |
 | `craft db:reset`        | Run Prisma migrations refresh |
