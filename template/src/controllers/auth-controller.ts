@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { loginRequest, CreateUserRequest } from "../request/user-request";
-import { successResponse, successUpdateResponse } from "../response/response";
+import { successResponse, successUpdateResponse } from "../utils/response";
 
 import dotenv from "dotenv";
 import { AuthService } from "../services/auth-service";

@@ -1,7 +1,7 @@
-import { spawnSync } from "child_process";
-import chalk from "chalk";
+const { spawnSync } = require("child_process");
+const chalk = require("chalk");
 
-export default function DbGenerate(name?: string) {
+function DbGenerate() {
   console.log(chalk.blue("🚀 Running prisma generate..."));
 
   // Gunakan shell:true supaya command berjalan lancar di Windows dan Unix
@@ -21,3 +21,4 @@ export default function DbGenerate(name?: string) {
     console.log(chalk.green("✅ Prisma generate completed."));
   }
 }
+module.exports = DbGenerate;

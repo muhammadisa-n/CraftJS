@@ -18,9 +18,10 @@ if (
 }
 
 connectDatabase();
+
+const PORT = process.env.PORT || 3000;
+const BASEURL = process.env.BASE_URL || `http://localhost:${PORT}`;
 web.listen(process.env.PORT, () => {
-  logger.info(
-    `Server Listening  On:${process.env.BASE_URL} Port: ${process.env.PORT}`
-  );
-  logger.info(`Server Listening Port:  ${process.env.PORT}`);
+  logger.info(`🚀 Server is listening on: ${BASEURL}`);
+  logger.info(`🔗 API Docs available at: ${BASEURL}/api/docs`);
 });

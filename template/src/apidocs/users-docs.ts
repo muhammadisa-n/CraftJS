@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /api/services/users:
+ * /api/users:
  *   get:
  *     summary: Mengambil daftar semua user
  *     tags: [Users]
@@ -92,7 +92,7 @@
  */
 /**
  * @swagger
- * /api/services/users/{id}:
+ * /api/users/{id}:
  *   get:
  *     summary: Mengambil detail user berdasarkan ID
  *     tags: [Users]
@@ -128,7 +128,7 @@
  */
 /**
  * @swagger
- * /api/services/users:
+ * /api/users:
  *   post:
  *     summary: Menambahkan user baru
  *     tags: [Users]
@@ -166,7 +166,7 @@
  */
 /**
  * @swagger
- * /api/services/users/{id}:
+ * /api/users/{id}:
  *   put:
  *     summary: Memperbarui data user berdasarkan ID
  *     tags: [Users]
@@ -209,7 +209,7 @@
  */
 /**
  * @swagger
- * /api/services/users/{id}:
+ * /api/users/{id}:
  *   delete:
  *     summary: Menghapus user secara permanen
  *     tags: [Users]

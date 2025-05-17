@@ -1,11 +1,12 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
-const toPascalCase = (str: string) =>
-  str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
+function toPascalCase(str) {
+  return str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
+}
 
-export default function makeController(name: string) {
+function makeController(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a controller name."));
     return;
@@ -39,3 +40,5 @@ export class ${className} {
   fs.writeFileSync(filePath, content);
   console.log(chalk.green(`✅ Controller created at ${filePath}`));
 }
+
+module.exports = makeController;

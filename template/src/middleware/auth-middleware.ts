@@ -1,10 +1,10 @@
 import { NextFunction, Response } from "express";
-import { errorResponse } from "../response/response";
+import { errorResponse } from "../utils/response";
 import { prismaClient } from "../application/database";
 
 import jwt from "jsonwebtoken";
 import { UserRequest } from "../utils/type-request";
-import { ResponseError } from "../response/response-error";
+import { ResponseError } from "../utils/response-error";
 export const authMiddleware = async (
   req: UserRequest,
   res: Response,

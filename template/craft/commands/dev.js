@@ -1,7 +1,7 @@
-import { spawnSync } from "child_process";
-import chalk from "chalk";
+const { spawnSync } = require("child_process");
+const chalk = require("chalk");
 
-export default function Dev() {
+function Dev() {
   console.log(chalk.blue("🚀 Starting development server with nodemon..."));
   const result = spawnSync("nodemon", ["./src/main.ts"], {
     stdio: "inherit",
@@ -13,3 +13,4 @@ export default function Dev() {
     process.exit(result.status ?? 1);
   }
 }
+module.exports = Dev;

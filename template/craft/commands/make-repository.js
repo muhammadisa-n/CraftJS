@@ -1,11 +1,10 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
-
-const toPascalCase = (str: string) =>
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
+const toPascalCase = (str) =>
   str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
 
-export default function makeRepository(name: string) {
+function makeRepository(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a repository name."));
     return;
@@ -34,3 +33,4 @@ export class ${className} {
   fs.writeFileSync(filePath, content);
   console.log(chalk.green(`✅ Repository created at ${filePath}`));
 }
+module.exports = makeRepository;

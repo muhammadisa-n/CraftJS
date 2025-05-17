@@ -1,6 +1,6 @@
 {
-  "name": "express-typescript-prisma-starter-kit",
-  "description": "A pragmatic backend framework powered by **Express**, **TypeScript**, and **Prisma** — designed for rapid development, simplicity, and scalability.",
+  "name": "craftjs",
+  "description": "A starter kit backend framework powered by Express, TypeScript, EJS Engine, and Prisma — designed for rapid development, simplicity, and scalability.",
   "version": "1.0.4",
   "keywords": [
     "express",
@@ -11,11 +11,11 @@
   "license": "UNLICENSED",
   "main": "main.js",
   "scripts": {
-    "craft": "ts-node craft.ts",
-    "start": "npm run craft start",
-    "dev": "npm run craft dev",
-    "build": "npm run craft build",
-    "test": "npm run craft run:test"
+    "craft": "node craft.js",
+    "start": "node craft start",
+    "dev": "node  craft dev",
+    "build": "node craft build",
+    "test": "node craft run:test"
   },
   "jest": {
     "transform": {
@@ -33,13 +33,16 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.6.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-themes": "^1.4.3",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0",
+    "yargs": "^17.7.2",
     "zod": "^3.24.3"
   },
   "devDependencies": {
@@ -50,7 +53,9 @@
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/dotenv": "^6.1.1",
+    "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.1",
+    "@types/express-ejs-layouts": "^2.5.4",
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/luxon": "^3.6.2",

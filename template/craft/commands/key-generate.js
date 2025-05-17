@@ -1,9 +1,9 @@
-import * as fs from "fs";
-import * as path from "path";
-import crypto from "crypto";
-import chalk from "chalk";
+const chalk = require("chalk");
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
 
-export default function keyGenerate() {
+function keyGenerate() {
   const envPath = path.resolve(process.cwd(), ".env");
   if (!fs.existsSync(envPath)) {
     console.error(chalk.red("❌ .env file not found!"));
@@ -43,3 +43,4 @@ export default function keyGenerate() {
     )
   );
 }
+module.exports = keyGenerate;

@@ -1,11 +1,11 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
-const toPascalCase = (str: string) =>
+const toPascalCase = (str) =>
   str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
 
-export default function makeMiddleware(name: string) {
+function makeMiddleware(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a middleware name."));
     return;
@@ -39,3 +39,4 @@ export const ${className} = async (
   fs.writeFileSync(filePath, content);
   console.log(chalk.green(`✅ Middleware created at ${filePath}`));
 }
+module.exports = makeMiddleware;

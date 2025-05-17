@@ -1,14 +1,18 @@
 import express from "express";
-import { successResponse } from "../response/response";
+import { successResponse } from "../utils/response";
 import { authRouter } from "./auth-route";
 import { userRouter } from "./user-route";
 
 export const mainRouter = express.Router();
 
+// mainRouter.get("/", (req, res) => {
+//   res.render("index", { title: "Home Page" });
+// });
+
 mainRouter.get("/", (req, res) => {
   res
     .status(200)
-    .json(successResponse(`${process.env.APP_NAME} is running`, 200))
+    .json(successResponse(`${process.env.APP_NAME}  is running`, 200))
     .end();
 });
 mainRouter.get("/api", (req, res) => {

@@ -1,7 +1,7 @@
-import chalk from "chalk";
-import { spawnSync } from "child_process";
+const { spawnSync } = require("child_process");
+const chalk = require("chalk");
 
-export default function DbReset(name?: string) {
+function DbReset() {
   console.log(chalk.blue("🚀 Running prisma migrate reset..."));
 
   const result = spawnSync("npx", ["prisma", "migrate", "reset"], {
@@ -19,3 +19,4 @@ export default function DbReset(name?: string) {
     console.log(chalk.green("✅ Migrate reset completed."));
   }
 }
+module.exports = DbReset;

@@ -1,4 +1,3 @@
-// Register
 /**
  * @swagger
  * /api/auth/register:

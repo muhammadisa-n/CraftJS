@@ -1,10 +1,9 @@
-import { spawnSync } from "child_process";
-import chalk from "chalk";
-
-export default function Build() {
+const { spawnSync } = require("child_process");
+const chalk = require("chalk");
+function Build() {
   console.log(chalk.blue("📦 Building project..."));
 
-  const result = spawnSync("tsc", [], {
+  const result = spawnSync("npx", ["tsc"], {
     stdio: "inherit",
     shell: true,
   });
@@ -16,3 +15,4 @@ export default function Build() {
     console.log(chalk.green("✅ Build completed successfully."));
   }
 }
+module.exports = Build;

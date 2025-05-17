@@ -10,7 +10,7 @@ import {
   successDeleteResponse,
   successResponse,
   successUpdateResponse,
-} from "../response/response";
+} from "../utils/response";
 import { UserRequest } from "../utils/type-request";
 import dotenv from "dotenv";
 dotenv.config();

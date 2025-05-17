@@ -1,8 +1,8 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
-export default function MakeTest(name?: string) {
+function MakeTest(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a test file name."));
     process.exit(1);
@@ -13,7 +13,6 @@ export default function MakeTest(name?: string) {
     fs.mkdirSync(testDir, { recursive: true });
   }
 
-  // Pastikan nama file berakhiran .test.ts
   const fileName = name.endsWith(".test.ts") ? name : `${name}.test.ts`;
   const filePath = path.join(testDir, fileName);
 
@@ -45,3 +44,5 @@ describe("POST /api/users", () => {
   fs.writeFileSync(filePath, template, "utf-8");
   console.log(chalk.green(`✅ Test file created at: ${filePath}`));
 }
+
+module.exports = MakeTest;

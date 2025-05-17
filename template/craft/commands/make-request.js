@@ -1,11 +1,11 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
-const toPascalCase = (str: string) =>
+const toPascalCase = (str) =>
   str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
 
-export default function makeRequest(name: string) {
+function makeRequest(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a request name."));
     return;
@@ -35,3 +35,5 @@ export default function makeRequest(name: string) {
   fs.writeFileSync(filePath, content);
   console.log(chalk.green(`✅ Request type created at ${filePath}`));
 }
+
+module.exports = makeRequest;

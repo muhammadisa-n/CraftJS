@@ -1,6 +1,6 @@
 # CraftJS
 
-A pragmatic backend framework powered by **Express**, **TypeScript**, and **Prisma** — designed for rapid development, simplicity, and scalability.
+A pragmatic backend framework powered by **Express**, **TypeScript**, **EJS Engine**, and **Prisma** — designed for rapid development, simplicity, and scalability.
 
 ---
 
@@ -14,6 +14,25 @@ A pragmatic backend framework powered by **Express**, **TypeScript**, and **Pris
 - Predefined project structure for fast onboarding
 
 ---
+
+💡 Note: EJS View Engine is included but disabled by default. To enable it:
+Open src/application/web.ts and uncomment the following lines:
+
+```bash
+// EJS View Engine Setup
+web.set("view engine", "ejs");
+web.set("views", path.join(\_\_dirname, "..", "views"));
+web.use(expressLayouts);
+web.set("layout", "layouts/main");
+```
+
+Then, go to src/routes/main-route.ts and uncomment this:
+
+```bash
+mainRouter.get("/", (req, res) => {
+res.render("index", { title: "Home Page" });
+});
+```
 
 ## Getting Started
 
@@ -33,16 +52,16 @@ cd my-app
 
 ```bash
 npm install
-npm run craft key:generate
-npm run craft generate
-npm run craft db:migrate
-npm run craft dev
+node craft key:generate
+node craft generate
+node craft db:migrate
+node craft dev
 ```
 
 ### Available Craft Commands
 
 ```bash
-npm run craft help
+node craft help
 ```
 
 ---
@@ -51,6 +70,7 @@ npm run craft help
 
 ```
 my-app/
+├── craft/
 ├── src/
 │   ├── apidocs/
 │   ├── application/
@@ -70,7 +90,7 @@ my-app/
 ├── prisma/
 ├── .gitignore
 ├── babel.config.json
-├── craft.ts
+├── craft.js
 ├── nodemon.json
 ├── package.json
 ├── package-lock.json
@@ -102,6 +122,7 @@ my-app/
 | `craft make:test`       | Make Test case                |
 | `craft make:utils`      | Make Utils                    |
 | `craft make:validation` | Make Validation               |
+| `craft make:view`       | Make View                     |
 
 ---
 

@@ -1,8 +1,8 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
-export default function makeUtils(name: string) {
+function makeUtils(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a utils name."));
     return;
@@ -26,3 +26,5 @@ export default function makeUtils(name: string) {
   fs.writeFileSync(filePath, content);
   console.log(chalk.green(`✅ Utils created at ${filePath}`));
 }
+
+module.exports = makeUtils;

@@ -1,18 +1,17 @@
-import * as fs from "fs";
-import * as path from "path";
-import chalk from "chalk";
+const fs = require("fs");
+const path = require("path");
+const chalk = require("chalk");
 
-const toPascalCase = (str: string) =>
+const toPascalCase = (str) =>
   str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
 
-export default function makeCommand(name: string) {
+function makeCommand(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a command name."));
     return;
   }
 
-  const className = toPascalCase(name);
-  const fileName = `${name.toLowerCase()}.ts`;
+  const fileName = `${name.toLowerCase()}.js`;
   const targetDir = path.resolve("craft", "commands");
 
   if (!fs.existsSync(targetDir)) {
@@ -25,18 +24,18 @@ export default function makeCommand(name: string) {
     return;
   }
 
-  const content = `import chalk from "chalk";
+  const content = `const fs = require("fs");
+  const path = require("path");
+  const chalk = require("chalk");
 
-export default function ${className}(name?: string) {
-  console.log(chalk.green("✅ Running custom command: ${className}"));
-  if (name) {
-    console.log(chalk.blue("Parameter received:"), name);
-  } else {
-    console.log(chalk.yellow("No parameter provided."));
+  function make${name}(name) {
+
   }
-}
+
+  module.exports = make${name};
 `;
 
   fs.writeFileSync(filePath, content);
   console.log(chalk.green(`✅ Command created at ${filePath}`));
 }
+module.exports = makeCommand;

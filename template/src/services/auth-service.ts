@@ -5,7 +5,7 @@ import {
   UserDetailResponse,
   UserResponse,
 } from "../response/user-response";
-import { ResponseError } from "../response/response-error";
+import { ResponseError } from "../utils/response-error";
 import { UserValidation } from "../validation/user-validation";
 import { Validation } from "../validation/validation";
 import * as argon2 from "argon2";

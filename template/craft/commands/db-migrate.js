@@ -1,7 +1,7 @@
-import chalk from "chalk";
-import { spawnSync } from "child_process";
+const { spawnSync } = require("child_process");
+const chalk = require("chalk");
 
-export default function DbMigrate(name?: string) {
+function DbMigrate() {
   console.log(chalk.blue("🚀 Running prisma migrate dev..."));
 
   const result = spawnSync("npx", ["prisma", "migrate", "dev"], {
@@ -19,3 +19,4 @@ export default function DbMigrate(name?: string) {
     console.log(chalk.green("✅ Migration completed."));
   }
 }
+module.exports = DbMigrate;

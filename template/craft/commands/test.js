@@ -1,7 +1,7 @@
-import { spawnSync } from "child_process";
-import chalk from "chalk";
+const { spawnSync } = require("child_process");
+const chalk = require("chalk");
 
-export default function RunTest() {
+function RunTest() {
   console.log(chalk.blue("🧪 Running tests..."));
 
   const result = spawnSync("npx", ["jest", "-i"], {
@@ -16,3 +16,5 @@ export default function RunTest() {
     console.log(chalk.green("✅ Tests passed."));
   }
 }
+
+module.exports = RunTest;
