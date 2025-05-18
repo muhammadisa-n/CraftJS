@@ -12,35 +12,30 @@ function keyGenerate() {
 
   let envContent = fs.readFileSync(envPath, "utf-8");
 
-  const generateKey = () => crypto.randomBytes(16).toString("hex");
+  const generateKey = (number) => crypto.randomBytes(number).toString("hex");
 
-  const accessTokenKey = generateKey();
-  const refreshTokenKey = generateKey();
-
-  if (envContent.includes("JWT_SECRET_ACCESS_TOKEN=")) {
+  if (envContent.includes("JWT_SECRET=")) {
     envContent = envContent.replace(
-      /JWT_SECRET_ACCESS_TOKEN=.*/g,
-      `JWT_SECRET_ACCESS_TOKEN=${accessTokenKey}`
+      /JWT_SECRET=.*/g,
+      `JWT_SECRET=${generateKey(16)}`
     );
   } else {
-    envContent += `\nJWT_SECRET_ACCESS_TOKEN=${accessTokenKey}`;
+    envContent += `\nJWT_SECRET_ACCESS_TOKEN=${generateKey(16)}`;
   }
 
-  if (envContent.includes("JWT_SECRET_REFRESH_TOKEN=")) {
+  if (envContent.includes("APP_SECRET=")) {
     envContent = envContent.replace(
-      /JWT_SECRET_REFRESH_TOKEN=.*/g,
-      `JWT_SECRET_REFRESH_TOKEN=${refreshTokenKey}`
+      /APP_SECRET=.*/g,
+      `APP_SECRET=${generateKey(32)}`
     );
   } else {
-    envContent += `\nJWT_SECRET_REFRESH_TOKEN=${refreshTokenKey}`;
+    envContent += `\APP_SECRET=${generateKey(32)}`;
   }
 
   fs.writeFileSync(envPath, envContent);
 
   console.log(
-    chalk.green(
-      "✅ JWT access and refresh token secrets generated successfully."
-    )
+    chalk.green("✅ App Secret and JWT Secret generated successfully.")
   );
 }
 module.exports = keyGenerate;

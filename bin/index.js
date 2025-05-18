@@ -75,6 +75,7 @@ const ask = (question) => {
   }
 
   const envContent = `APP_NAME="${projectName}"
+APP_SECRET=
 NODE_ENV="development"
 TZ="Asia/Jakarta"
 DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
@@ -82,8 +83,7 @@ DATABASE_URL="mysql://root:@localhost:3306/${projectName}"
 BASE_URL="http://localhost:3000"
 BASE_API_URL="http://localhost:3000/api"
 PORT=3000
-JWT_SECRET_ACCESS_TOKEN=
-JWT_SECRET_REFRESH_TOKEN=
+JWT_SECRET=
 `;
 
   const envExampleContent = envContent.replace(/=.*/g, "=");

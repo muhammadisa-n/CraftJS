@@ -1,27 +1,28 @@
-import { web } from "./application/web";
-import { logger } from "./application/logging";
-import "dotenv/config";
-import { connectDatabase } from "./application/database";
-import dotenv from "dotenv";
-dotenv.config();
-if (
-  !process.env.JWT_SECRET_ACCESS_TOKEN ||
-  process.env.JWT_SECRET_ACCESS_TOKEN.trim() === "" ||
-  !process.env.JWT_SECRET_REFRESH_TOKEN ||
-  process.env.JWT_SECRET_REFRESH_TOKEN.trim() === ""
-) {
-  console.error(
-    "❌ JWT_SECRET_ACCESS_TOKEN or JWT_SECRET_REFRESH_TOKEN is missing in your .env file."
-  );
-  console.error("👉 Please run `npm run craft key:generate` to create them.");
-  process.exit(1);
+import { web } from "./config/web";
+import { connectDatabase } from "./config/database";
+import { env } from "./config/env";
+import { logger } from "./utils/logging";
+
+async function startServer() {
+  try {
+    if (
+      !env.APP_SECRET ||
+      env.APP_SECRET.trim() === "" ||
+      !env.JWT_SECRET ||
+      env.JWT_SECRET.trim() === ""
+    ) {
+      logger.error("❌ APP_SECRET or JWT_SECRET is missing in your .env file.");
+      logger.error("👉 Please run `node craft key:generate` to create them.");
+      process.exit(0);
+    }
+    await connectDatabase();
+    web.listen(env.PORT, () => {
+      logger.info(`🚀 Server is listening on: ${env.BASE_URL}`);
+      logger.info(`🔗 API Docs available at: ${env.BASE_API_URL}/docs`);
+    });
+  } catch (error) {
+    process.exit(0);
+  }
 }
 
-connectDatabase();
-
-const PORT = process.env.PORT || 3000;
-const BASEURL = process.env.BASE_URL || `http://localhost:${PORT}`;
-web.listen(process.env.PORT, () => {
-  logger.info(`🚀 Server is listening on: ${BASEURL}`);
-  logger.info(`🔗 API Docs available at: ${BASEURL}/api/docs`);
-});
+startServer();

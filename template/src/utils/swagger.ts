@@ -2,18 +2,18 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { Express } from "express";
 import { SwaggerTheme } from "swagger-themes";
-import dotenv from "dotenv";
-dotenv.config();
+import { env } from "../config/env";
+
 const swaggerOptions: swaggerJSDoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: `${process.env.APP_NAME} Api Documentation`,
+      title: `${env.APP_NAME} Api Documentation`,
       version: "1.0.0",
     },
     servers: [
       {
-        url: `${process.env.BASE_URL}`,
+        url: `${env.BASE_URL}`,
         description: "Local server",
       },
     ],
@@ -129,7 +129,7 @@ export function setupSwagger(app: Express) {
     swaggerUi.serve,
     swaggerUi.setup(swaggerSpec, {
       customCss: themeCss,
-      customSiteTitle: `${process.env.APP_NAME}  Api Documentation`,
+      customSiteTitle: `${env.APP_NAME}  Api Documentation`,
     })
   );
 }

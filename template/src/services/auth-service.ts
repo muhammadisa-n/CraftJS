@@ -1,23 +1,24 @@
-import { loginRequest, CreateUserRequest } from "../request/user-request";
 import {
   toUserDetailResponse,
   toUserResponse,
   UserDetailResponse,
   UserResponse,
-} from "../response/user-response";
+  loginRequest,
+  CreateUserRequest,
+  UpdateUserRequest,
+} from "../dtos/user-dto";
 import { ResponseError } from "../utils/response-error";
-import { UserValidation } from "../validation/user-validation";
-import { Validation } from "../validation/validation";
+import { UserValidation } from "../validations/user-validation";
+import { Validation } from "../utils/validation";
 import * as argon2 from "argon2";
 import { User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { Request } from "express";
-import { hashToken } from "../utils/hash";
-import { UpdateUserRequest } from "../request/user-request";
-import { UserRepository } from "../repository/user-repository";
-import { UserRequest } from "../utils/type-request";
-import dotenv from "dotenv";
-dotenv.config();
+import { UserRepository } from "../repositories/user-repository";
+import { UserRequest } from "../types/type-request";
+import { prismaClient } from "../config/database";
+import { env } from "../config/env";
+
 export class AuthService {
   static async register(request: CreateUserRequest): Promise<UserResponse> {
     const data = Validation.validate(UserValidation.REGISTER, request);
@@ -55,29 +56,23 @@ export class AuthService {
 
     const refreshToken = jwt.sign(
       {
-        id: userExits.id,
-        fullname: userExits.fullName,
-        email: userExits.email,
+        user_id: userExits.id,
+        user_fullName: userExits.fullName,
+        user_email: userExits.email,
       },
-      process.env.JWT_SECRET_REFRESH_TOKEN as string,
+      env.JWT_SECRET as string,
       {
         expiresIn: "1d",
       }
     );
-    const hashedToken = hashToken.hash(refreshToken);
-    await UserRepository.createRefreshToken({
-      user_id: userExits.id,
-      token: hashedToken,
-      expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    });
 
     const accessToken = jwt.sign(
       {
-        id: userExits.id,
-        fullname: userExits.fullName,
-        email: userExits.email,
+        user_id: userExits.id,
+        user_fullName: userExits.fullName,
+        user_email: userExits.email,
       },
-      process.env.JWT_SECRET_ACCESS_TOKEN as string,
+      env.JWT_SECRET as string,
       {
         expiresIn: "5m",
       }
@@ -125,64 +120,43 @@ export class AuthService {
   }
 
   static async logout(req: UserRequest) {
-    const refreshToken = req.cookies.auth_refresh_token;
+    const refreshToken = req.cookies.refresh_token;
     if (!req.user) {
       throw new ResponseError(401, "Unauthorized: Anda Belum Login.");
     }
     if (!refreshToken) {
       throw new ResponseError(401, "Unauthorized: Anda Belum Login.");
     }
-    const hashedToken = hashToken.hash(refreshToken);
-    const authrefreshToken =
-      await UserRepository.findRefreshTokenByUserAndToken(
-        req.user.id,
-        hashedToken
-      );
-    if (!authrefreshToken) {
-      throw new ResponseError(
-        401,
-        "Unauthorized: Refresh Token Tidak Ditemukan"
-      );
-    }
-    await UserRepository.deleteRefreshTokenByToken(authrefreshToken.token);
+    return refreshToken;
   }
 
   static async refreshToken(req: Request) {
-    const refreshToken = req.cookies.auth_refresh_token;
+    const refreshToken = req.cookies.refresh_token;
     if (!refreshToken) {
       throw new ResponseError(401, "Unauthorized, Anda Belum Login");
     }
-    const hashedToken = hashToken.hash(refreshToken);
-    const existingToken =
-      await UserRepository.findRefreshTokenWithUser(hashedToken);
-    if (!existingToken) {
-      throw new ResponseError(401, "Unauthorized,  Tidak Valid");
-    }
-    let decoded: any;
+
     try {
-      decoded = jwt.verify(
-        refreshToken,
-        process.env.JWT_SECRET_REFRESH_TOKEN as string
-      );
+      const decoded = jwt.verify(refreshToken, env.JWT_SECRET as string) as any;
+
+      const user = await prismaClient.user.findUnique({
+        where: { id: decoded.user_id },
+      });
+
+      if (!user) {
+        throw new ResponseError(401, "Unauthorized, Anda Belum Login.");
+      }
+      const payload = {
+        user_id: user.id,
+        user_fullName: user.fullName,
+        user_email: user.email,
+      };
+      const accessToken = jwt.sign(payload, env.JWT_SECRET as string, {
+        expiresIn: "6m",
+      });
+      return { accessToken, user: payload };
     } catch (err) {
       throw new ResponseError(401, "Token Tidak Valid Atau Kadaluarsa");
     }
-    if (existingToken.expires_at < new Date()) {
-      throw new ResponseError(401, "Token Sudah Kadaluarsa");
-    }
-    const payload = {
-      id: existingToken.user.id,
-      fullName: existingToken.user.fullName,
-      email: existingToken.user.email,
-    };
-    const user = existingToken.user;
-    const accessToken = jwt.sign(
-      payload,
-      process.env.JWT_SECRET_ACCESS_TOKEN as string,
-      {
-        expiresIn: "10m",
-      }
-    );
-    return { accessToken, user };
   }
 }

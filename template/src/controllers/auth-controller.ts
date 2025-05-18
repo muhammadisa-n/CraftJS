@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { loginRequest, CreateUserRequest } from "../request/user-request";
+import {
+  loginRequest,
+  CreateUserRequest,
+  UpdateUserRequest,
+} from "../dtos/user-dto";
 import { successResponse, successUpdateResponse } from "../utils/response";
-
-import dotenv from "dotenv";
 import { AuthService } from "../services/auth-service";
-import { UpdateUserRequest } from "../request/user-request";
-import { UserRequest } from "../utils/type-request";
-dotenv.config();
+import { UserRequest } from "../types/type-request";
+import { env } from "../config/env";
+
 export class AuthController {
   static async register(req: Request, res: Response, next: NextFunction) {
     try {
@@ -22,10 +24,10 @@ export class AuthController {
     try {
       const request: loginRequest = req.body as loginRequest;
       const response = await AuthService.login(request);
-      res.cookie("auth_refresh_token", response.refreshToken, {
+      res.cookie("refresh_token", response.refreshToken, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === "production",
+        secure: env.NODE_ENV === "production",
         sameSite: "lax",
         path: "/",
       });
@@ -67,7 +69,7 @@ export class AuthController {
 
   static async logout(req: UserRequest, res: Response, next: NextFunction) {
     await AuthService.logout(req);
-    res.clearCookie("auth_refresh_token");
+    res.clearCookie("refresh_token");
     res.status(200).json(successResponse("Logout berhasil", 200));
   }
   static async refreshToken(req: Request, res: Response, next: NextFunction) {

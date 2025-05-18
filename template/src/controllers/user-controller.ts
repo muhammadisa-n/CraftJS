@@ -3,7 +3,7 @@ import {
   CreateUserRequest,
   ListUserRequest,
   UpdateUserRequest,
-} from "../request/user-request";
+} from "../dtos/user-dto";
 import { UserService } from "../services/user-service";
 import {
   successCreateResponse,
@@ -11,9 +11,8 @@ import {
   successResponse,
   successUpdateResponse,
 } from "../utils/response";
-import { UserRequest } from "../utils/type-request";
-import dotenv from "dotenv";
-dotenv.config();
+import { UserRequest } from "../types/type-request";
+
 export class UserController {
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
