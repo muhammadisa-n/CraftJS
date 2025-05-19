@@ -2,3 +2,4 @@ template/.env
 node_modules/
 template/node_modules/
 template/dist/
+template/logs/
