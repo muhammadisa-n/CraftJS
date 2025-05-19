@@ -48,7 +48,7 @@ if (!fs.existsSync(logDir)) {
 export const dbLogger = winston.createLogger({
   level: "debug",
   format: winston.format.combine(
-    winston.format.timestamp(),
+    winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
     winston.format.printf(
       ({ timestamp, level, message }) =>
         `[${timestamp}] ${level.toUpperCase()}: ${message}`
@@ -102,8 +102,8 @@ export const httpAccessLogger = winston.createLogger({
       maxFiles: "30d",
       maxSize: "10m",
       format: winston.format.combine(
-        winston.format.timestamp(),
-        plainFormat // tanpa warna
+        winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+        plainFormat
       ),
     }),
     new winston.transports.Console({
