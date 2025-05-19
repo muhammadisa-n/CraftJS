@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\muham\\Projects\\CraftJS\\template\\logs\\.28131ae53a07ac4d2d3dd840abc0872301a33be7-audit.json",
+    "files": [
+        {
+            "date": 1747623328470,
+            "name": "C:\\Users\\muham\\Projects\\CraftJS\\template\\logs\\access-log-2025-05-19.log",
+            "hash": "c191e4c52266d1533f29048aaadf43dea2e515b2c9fd7326c9ba81e8f7af05c3"
+        }
+    ],
+    "hashType": "sha256"
+}

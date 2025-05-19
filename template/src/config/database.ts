@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { logger } from "../utils/logger";
+import { logger } from "./logger";
 import { DateTime } from "luxon";
-import { dbLogger } from "../utils/logger";
+import { dbLogger } from "./logger";
 import { env } from "./env";
 
 export const prismaClient = new PrismaClient({

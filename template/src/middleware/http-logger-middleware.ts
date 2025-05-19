@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { httpAccessLogger } from "../utils/logger";
+import { httpAccessLogger } from "../config/logger";
 
 export const httpLogger = async (
   req: Request,
