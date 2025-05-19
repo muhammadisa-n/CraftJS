@@ -1,7 +1,7 @@
 import { web } from "./config/web";
 import { connectDatabase } from "./config/database";
 import { env } from "./config/env";
-import { logger } from "./utils/logging";
+import { logger } from "./utils/logger";
 
 async function startServer() {
   try {
