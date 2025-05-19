@@ -1,4 +1,26 @@
 import { User } from "@prisma/client";
+export type loginRequest = {
+  email: string;
+  password: string;
+};
+export type CreateUserRequest = {
+  fullName: string;
+  email: string;
+  password: string;
+};
+
+export type UpdateUserRequest = {
+  fullName?: string;
+  email?: string;
+  password?: string;
+};
+
+export type ListUserRequest = {
+  page: number;
+  take: number;
+  skip: number;
+  name?: string;
+};
 export type UserDetailResponse = {
   id: string;
   fullName: string;

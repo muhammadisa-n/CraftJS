@@ -1,4 +1,4 @@
-import { prismaClient } from "../application/database";
+import { prismaClient } from "../config/database";
 
 export class UserRepository {
   static async countByEmail(email: string): Promise<number> {
@@ -55,32 +55,10 @@ export class UserRepository {
     });
   }
 
-  static async createRefreshToken(data: any) {
-    return prismaClient.refreshToken.create({ data });
-  }
-
   static async updateUser(data: any, id: string) {
     return prismaClient.user.update({
       where: { id },
       data,
-    });
-  }
-
-  static async findRefreshTokenByUserAndToken(userId: string, token: string) {
-    return prismaClient.refreshToken.findFirst({
-      where: { user_id: userId, token },
-    });
-  }
-
-  static async deleteRefreshTokenByToken(token: string) {
-    return prismaClient.refreshToken.delete({ where: { token } });
-  }
-  static async findRefreshTokenWithUser(token: string) {
-    return prismaClient.refreshToken.findFirst({
-      where: { token },
-      include: {
-        user: true,
-      },
     });
   }
 

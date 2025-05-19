@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { logger } from "../application/logging";
+import { httpAccessLogger } from "../config/logger";
 
 export const httpLogger = async (
   req: Request,
@@ -15,11 +15,15 @@ export const httpLogger = async (
     const logMessage = `${req.method} ${req.originalUrl} ${res.statusCode} ${timeInMs} ms - ${res.get("Content-Length") || 0}`;
 
     if (res.statusCode >= 200 && res.statusCode < 300) {
-      logger.info(logMessage);
-    } else if (res.statusCode >= 400 && res.statusCode < 600) {
-      logger.error(logMessage);
+      httpAccessLogger.info(logMessage);
+    } else if (res.statusCode >= 300 && res.statusCode < 400) {
+      httpAccessLogger.info(logMessage);
+    } else if (res.statusCode >= 400 && res.statusCode < 500) {
+      httpAccessLogger.warn(logMessage);
+    } else if (res.statusCode >= 500) {
+      httpAccessLogger.error(logMessage);
     } else {
-      logger.warn(logMessage);
+      httpAccessLogger.debug(logMessage);
     }
   });
 

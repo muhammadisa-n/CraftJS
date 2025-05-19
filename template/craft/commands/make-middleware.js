@@ -2,8 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk");
 
-const toPascalCase = (str) =>
-  str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
+const toCamelCase = (str) =>
+  str
+    .toLowerCase()
+    .split("-")
+    .map((word, i) => (i === 0 ? word : word[0].toUpperCase() + word.slice(1)))
+    .join("");
 
 function makeMiddleware(name) {
   if (!name) {
@@ -11,7 +15,7 @@ function makeMiddleware(name) {
     return;
   }
 
-  const className = `${toPascalCase(name)}Middleware`;
+  const className = `${toCamelCase(name)}Middleware`;
   const fileName = `${name.toLowerCase()}-middleware.ts`;
   const targetDir = path.resolve("src", "middleware");
 

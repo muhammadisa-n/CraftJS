@@ -129,31 +129,17 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
-    "make:request <name>",
-    "Generate a new request",
+    "make:dto <name>",
+    "Generate a new dto",
     (yargs) => {
       yargs.positional("name", {
-        describe: "Request name",
+        describe: "Dto name",
         type: "string",
       });
     },
     (argv) => {
-      const makerequest = require("./craft/commands/make-request.js");
-      makerequest(argv.name);
-    }
-  )
-  .command(
-    "make:response <name>",
-    "Generate a new response",
-    (yargs) => {
-      yargs.positional("name", {
-        describe: "Response name",
-        type: "string",
-      });
-    },
-    (argv) => {
-      const makeresponse = require("./craft/commands/make-response.js");
-      makeresponse(argv.name);
+      const makedto = require("./craft/commands/make-dto.js");
+      makedto(argv.name);
     }
   )
   .command(

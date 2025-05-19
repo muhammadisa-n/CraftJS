@@ -36,14 +36,6 @@ res.render("index", { title: "Home Page" });
 });
 ```
 
-To enable log query in console, to src/application/database.ts and uncomment this:
-
-```bash
- prismaClient.$on("query", (e) => {
-   logger.info(e);
- });
-```
-
 ## Getting Started
 
 ### Scaffold a New Project
@@ -101,6 +93,7 @@ my-app/
 │   └── validation/
 │   └── main.ts
 ├── test/
+├── logs/
 ├── .env
 ├── .env.example
 ├── prisma/
@@ -117,28 +110,27 @@ my-app/
 
 ## Scripts
 
-| Command                 | Description                   |
-| ----------------------- | ----------------------------- |
-| `craft start`           | Start production server       |
-| `craft dev`             | Run in development mode       |
-| `craft build`           | Build for production          |
-| `craft test`            | Run Jest tests                |
-| `craft db:generate`     | Generate Prisma client        |
-| `craft db:migrate`      | Run Prisma migrations         |
-| `craft db:reset`        | Run Prisma migrations refresh |
-| `craft key:generate`    | Generate secret keys          |
-| `craft make:controller` | Make Controller File          |
-| `craft make:command`    | Make Command File             |
-| `craft make:middleware` | Make Middleware File          |
-| `craft make:repository` | Make repository File          |
-| `craft make:request`    | Make Request File             |
-| `craft make:response`   | Make Response File            |
-| `craft make:route`      | Make Route File               |
-| `craft make:service`    | Make Service File             |
-| `craft make:test`       | Make Test case                |
-| `craft make:utils`      | Make Utils                    |
-| `craft make:validation` | Make Validation               |
-| `craft make:view`       | Make View                     |
+| Command                 | Description                    |
+| ----------------------- | ------------------------------ |
+| `craft start`           | Start production server        |
+| `craft dev`             | Run in development mode        |
+| `craft build`           | Build for production           |
+| `craft test`            | Run Jest tests                 |
+| `craft db:generate`     | Generate Prisma client         |
+| `craft db:migrate`      | Run Prisma migrations          |
+| `craft db:reset`        | Run Prisma migrations refresh  |
+| `craft key:generate`    | Generate secret keys           |
+| `craft make:controller` | Make Controller File           |
+| `craft make:command`    | Make Command File              |
+| `craft make:middleware` | Make Middleware File           |
+| `craft make:repository` | Make repository File           |
+| `craft make:dto`        | Make Data Transfer Object File |
+| `craft make:route`      | Make Route File                |
+| `craft make:service`    | Make Service File              |
+| `craft make:test`       | Make Test case                 |
+| `craft make:utils`      | Make Utils                     |
+| `craft make:validation` | Make Validation                |
+| `craft make:view`       | Make View                      |
 
 ---
 

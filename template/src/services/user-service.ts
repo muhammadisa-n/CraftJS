@@ -2,16 +2,16 @@ import {
   CreateUserRequest,
   ListUserRequest,
   UpdateUserRequest,
-} from "../request/user-request";
-import { toUserResponse, UserResponse } from "../response/user-response";
+  toUserResponse,
+  UserResponse,
+} from "../dtos/user-dto";
 import { ResponseError } from "../utils/response-error";
-import { UserValidation } from "../validation/user-validation";
-import { Validation } from "../validation/validation";
+import { UserValidation } from "../validations/user-validation";
+import { Validation } from "../utils/validation";
 import * as argon2 from "argon2";
-import { listResponse, tolistResponse } from "../response/list-response";
-import { UserRepository } from "../repository/user-repository";
-import dotenv from "dotenv";
-dotenv.config();
+import { listResponse, tolistResponse } from "../dtos/list-dto";
+import { UserRepository } from "../repositories/user-repository";
+import { env } from "../config/env";
 export class UserService {
   static async create(request: CreateUserRequest): Promise<UserResponse> {
     const data = Validation.validate(UserValidation.CREATE, request);

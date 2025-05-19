@@ -24,7 +24,7 @@ export const web = express();
 web.use(express.json());
 web.use(cookieParser());
 web.use(cors({ credentials: true, origin: `${process.env.CLIENT_URL}` }));
-web.use(express.static("public")); // For serving static assets like CSS, JS, etc.
+web.use(express.static("public"));
 web.use(httpLogger);
 
 // Swagger Setup

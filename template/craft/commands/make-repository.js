@@ -12,7 +12,7 @@ function makeRepository(name) {
 
   const className = `${toPascalCase(name)}Repository`;
   const fileName = `${name.toLowerCase()}-repository.ts`;
-  const targetDir = path.resolve("src", "repository");
+  const targetDir = path.resolve("src", "repositories");
 
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
@@ -24,7 +24,7 @@ function makeRepository(name) {
     return;
   }
 
-  const content = `import { prismaClient } from "../application/database";
+  const content = `import { prismaClient } from "../config/database";
 
 export class ${className} {
 }

@@ -1,8 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { logger } from "./logging";
+import { logger } from "./logger";
 import { DateTime } from "luxon";
-import dotenv from "dotenv";
-dotenv.config();
+import { dbLogger } from "./logger";
+import { env } from "./env";
+
 export const prismaClient = new PrismaClient({
   log: [
     {
@@ -23,6 +24,7 @@ export const prismaClient = new PrismaClient({
     },
   ],
 });
+
 prismaClient.$use(async (params, next) => {
   const result = await next(params);
 
@@ -32,8 +34,8 @@ prismaClient.$use(async (params, next) => {
     }
 
     return DateTime.fromJSDate(date)
-      .setZone(process.env.TZ)
-      .toFormat(process.env.DATETIME_FORMAT as string);
+      .setZone(env.TZ || "UTC")
+      .toFormat(env.DATETIME_FORMAT);
   };
 
   const transformDates = (item: any): any => {
@@ -65,9 +67,9 @@ prismaClient.$use(async (params, next) => {
   return transformDates(result);
 });
 
-// prismaClient.$on("query", (e) => {
-//   logger.info(e);
-// });
+prismaClient.$on("query", (e) => {
+  dbLogger.info(`${e.query} - ${e.params}`);
+});
 prismaClient.$on("warn", (e) => {
   logger.warn(e);
 });
@@ -80,12 +82,9 @@ prismaClient.$on("error", (e) => {
 export const connectDatabase = async () => {
   try {
     await prismaClient.$connect();
-    logger.info("Connected Database");
+    logger.info("✅ Connected Database");
   } catch (error) {
-    if (error instanceof Error) {
-      logger.error("Error Connect Database");
-    } else {
-      logger.error("Unknown error occurred:");
-    }
+    logger.error("❌ Failed Connect To Database", error);
+    throw error;
   }
 };

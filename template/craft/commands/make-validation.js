@@ -13,7 +13,7 @@ function makeValidation(name) {
 
   const className = `${toPascalCase(name)}Validation`;
   const fileName = `${name.toLowerCase()}-validation.ts`;
-  const targetDir = path.resolve("src", "validation");
+  const targetDir = path.resolve("src", "validations");
 
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
