@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
+import { env } from "./env";
 // import expressLayouts from "express-ejs-layouts";
 // import path from "path";
 
@@ -10,8 +10,6 @@ import { httpLogger } from "../middleware/http-logger-middleware";
 import { errorResponse } from "../utils/response";
 import { setupSwagger } from "../utils/swagger";
 import { mainRouter } from "../routes/main-route";
-
-dotenv.config();
 
 export const web = express();
 // EJS View Engine Setup
@@ -23,7 +21,7 @@ export const web = express();
 // Middleware
 web.use(express.json());
 web.use(cookieParser());
-web.use(cors({ credentials: true, origin: `${process.env.CLIENT_URL}` }));
+web.use(cors({ credentials: true, origin: `${env.CLIENT_URL}` }));
 web.use(express.static("public"));
 web.use(httpLogger);
 

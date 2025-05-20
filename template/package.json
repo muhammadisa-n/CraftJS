@@ -15,7 +15,7 @@
     "start": "node craft start",
     "dev": "node  craft dev",
     "build": "node craft build",
-    "test": "node craft run:test"
+    "test": "node craft test"
   },
   "jest": {
     "transform": {
@@ -36,6 +36,7 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-ejs-layouts": "^2.5.1",
+    "inquirer": "^8.2.6",
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.6.1",
     "swagger-jsdoc": "^6.2.8",

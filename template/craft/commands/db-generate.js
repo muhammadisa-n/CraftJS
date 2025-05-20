@@ -4,7 +4,6 @@ const chalk = require("chalk");
 function DbGenerate() {
   console.log(chalk.blue("🚀 Running prisma generate..."));
 
-  // Gunakan shell:true supaya command berjalan lancar di Windows dan Unix
   const result = spawnSync("npx", ["prisma", "generate"], {
     stdio: "inherit",
     shell: true,

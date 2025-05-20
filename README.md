@@ -81,16 +81,16 @@ my-app/
 ├── craft/
 ├── src/
 │   ├── apidocs/
-│   ├── application/
+│   ├── config/
 │   ├── controllers/
 │   ├── middleware/
-│   ├── repository/
-│   ├── request/
-│   ├── response/
+│   ├── repositories/
+│   ├── dtos/
 │   ├── routes/
 │   └── services/
+│   └── types/
 │   └── utils/
-│   └── validation/
+│   └── validations/
 │   └── main.ts
 ├── test/
 ├── logs/

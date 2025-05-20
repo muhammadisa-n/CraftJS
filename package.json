@@ -1,9 +1,9 @@
 {
   "name": "@muhammadisa226/craftjs",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "description": "A starter kit backend framework powered by Express, TypeScript, EJS Engine, and Prisma — designed for rapid development, simplicity, and scalability.",
   "bin": {
-    "create-craftjs": "bin/index.js"
+    "ccraftjs": "bin/index.js"
   },
   "author": "Muhammad Isa Nuruddin",
   "homepage": "https://github.com/muhammadisa-n/CraftJS#readme",

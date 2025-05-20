@@ -90,14 +90,20 @@ yargs(hideBin(process.argv))
     "make:controller <name>",
     "Generate a new controller",
     (yargs) => {
-      yargs.positional("name", {
-        describe: "Controller name",
-        type: "string",
-      });
+      yargs
+        .positional("name", {
+          describe: "Controller name",
+          type: "string",
+        })
+        .option("resource", {
+          describe: "Generate resource style controller methods",
+          type: "boolean",
+          default: false,
+        });
     },
     (argv) => {
       const makecontroller = require("./craft/commands/make-controller.js");
-      makecontroller(argv.name);
+      makecontroller(argv.name, { resource: argv.resource });
     }
   )
   .command(
