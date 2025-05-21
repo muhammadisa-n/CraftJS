@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { env } from "./env";
+import { logger } from "./logger";
 
 if (
   env.CLOUDINARY_CLOUD_NAME &&
@@ -12,7 +13,7 @@ if (
     api_secret: env.CLOUDINARY_API_SECRET,
   });
 } else {
-  console.warn(
+  logger.warn(
     "⚠️ Cloudinary config is incomplete. Skipping Cloudinary configuration."
   );
 }
