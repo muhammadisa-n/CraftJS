@@ -41,13 +41,13 @@ res.render("index", { title: "Home Page" });
 ### Scaffold a New Project
 
 ```bash
-npx @muhammadisa226/craftjs@latest
+npx create-craftjs  my-app
 ```
 
 OR
 
 ```bash
-npx @muhammadisa226/craftjs@latest my-app
+npm init craftjs my-app
 ```
 
 ### Go to project folder
