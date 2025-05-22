@@ -29,36 +29,60 @@ function makeController(name, options = {}) {
   }
 
   const resourceMethods = `
- static async getAll(req: Request, res: Response) {
-    res.status(200).json({ message: "Listing all resources" });
+ static async getAll(req: Request, res: Response, next: NextFunction) {
+     try {
+      res.status(200).json({ message: "Listing all resources" });
+    } catch (error) {
+      next(error);
+    }
   }
 
- static async getOne(req: Request, res: Response) {
-    res.status(200).json({ message: "Showing single resource" });
+ static async getOne(req: Request, res: Response,  next: NextFunction) {
+  try {
+      res.status(200).json({ message: "Showing single resource" });
+    } catch (error) {
+      next(error);
+    }
   }
 
- static async create(req: Request, res: Response) {
-    res.status(201).json({ message: "Resource created" });
+ static async create(req: Request, res: Response, next: NextFunction) {
+  try {
+      res.status(201).json({ message: "Resource created" });
+    } catch (error) {
+      next(error);
+    }
   }
 
- static async update(req: Request, res: Response) {
-    res.status(200).json({ message: "Resource updated" });
+ static async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.status(201).json({ message: "Resource updated" });
+    } catch (error) {
+      next(error);
+    }
   }
 
- static async delete(req: Request, res: Response) {
-    res.status(200).json({ message: "Resource deleted" });
+ static async delete(req: Request, res: Response, next: NextFunction) {
+      try {
+      res.status(201).json({ message: "Resource deleted" });
+    } catch (error) {
+      next(error);
+    }
   }
 `;
 
   const defaultMethod = `
- static async getAll(req: Request, res: Response) {
-    res.status(200).json({ message: "ok" });
+ static async getAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.status(201).json({ message: "ok" });
+    } catch (error) {
+      next(error);
+    }
   }
 `;
 
   const methods = options.resource ? resourceMethods : defaultMethod;
 
-  const content = `import { Request, Response } from "express";
+  const content = `import { Request, Response,NextFunction } from "express";
 
 export class ${className} {${methods}
 }
