@@ -41,13 +41,13 @@ res.render("index", { title: "Home Page" });
 ### Scaffold a New Project
 
 ```bash
-npx @muhammadisa226/craftjs@latest
+npx create-craftjs  my-app
 ```
 
 OR
 
 ```bash
-npx @muhammadisa226/craftjs@latest my-app
+npm init craftjs my-app
 ```
 
 ### Go to project folder
@@ -81,16 +81,16 @@ my-app/
 ├── craft/
 ├── src/
 │   ├── apidocs/
-│   ├── application/
+│   ├── config/
 │   ├── controllers/
 │   ├── middleware/
-│   ├── repository/
-│   ├── request/
-│   ├── response/
+│   ├── repositories/
+│   ├── dtos/
 │   ├── routes/
 │   └── services/
+│   └── types/
 │   └── utils/
-│   └── validation/
+│   └── validations/
 │   └── main.ts
 ├── test/
 ├── logs/

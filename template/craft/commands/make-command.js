@@ -2,9 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk");
 
-const toPascalCase = (str) =>
-  str.replace(/(^\w|-\w)/g, (m) => m.replace("-", "").toUpperCase());
-
 function makeCommand(name) {
   if (!name) {
     console.log(chalk.red("❌ Please provide a command name."));
