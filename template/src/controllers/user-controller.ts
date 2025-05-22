@@ -14,17 +14,6 @@ import {
 import { UserRequest } from "../types/type-request";
 
 export class UserController {
-  static async create(req: Request, res: Response, next: NextFunction) {
-    try {
-      const request: CreateUserRequest = req.body as CreateUserRequest;
-      console.log(request);
-      const response = await UserService.create(request);
-      res.status(201).json(successCreateResponse(response));
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async getAll(req: Request, res: Response, next: NextFunction) {
     try {
       const page = Number(req.query.page) || 1;
@@ -53,6 +42,17 @@ export class UserController {
         .json(successResponse("Berhasil Get Detail Data", 200, response));
     } catch (e) {
       next(e);
+    }
+  }
+
+  static async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const request: CreateUserRequest = req.body as CreateUserRequest;
+      console.log(request);
+      const response = await UserService.create(request);
+      res.status(201).json(successCreateResponse(response));
+    } catch (error) {
+      next(error);
     }
   }
 
