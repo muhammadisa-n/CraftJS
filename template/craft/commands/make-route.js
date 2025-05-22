@@ -36,7 +36,11 @@ import { ${className} } from "../controllers/${routeName}-controller";
 export const ${routeConst} = express.Router();
 
 // Example routes:
-${routeConst}.get("/api/${routeName}s", asyncHandler(authMiddleware), ${className}.getAll);
+${routeConst}.get("/api/${routeName}s", ${className}.getAll);
+${routeConst}.get("/api/${routeName}s/:id", ${className}.getOne);
+${routeConst}.post("/api/${routeName}s", ${className}.create);
+${routeConst}.get("/api/${routeName}s/:id", ${className}.update);
+${routeConst}.get("/api/${routeName}s/:id", ${className}.delete);
 `;
 
   fs.writeFileSync(filePath, content);
