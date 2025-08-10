@@ -94,6 +94,8 @@ my-app/
 │   └── main.ts
 ├── test/
 ├── logs/
+├── docker-compose.yml
+├── Dockerfile
 ├── .env
 ├── .env.example
 ├── prisma/

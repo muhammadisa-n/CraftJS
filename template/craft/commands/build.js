@@ -4,7 +4,8 @@ function Build() {
   console.log(chalk.blue("📦 Building project..."));
 
   try {
-    execSync("npx tsc && cp -r src/views dist/views", { stdio: "inherit" });
+    execSync("npx tsc && cp -r src/views build/views", { stdio: "inherit" });
+    execSync("cp -r public build/public", { stdio: "inherit" });
     console.log(chalk.green("✅ Build completed successfully."));
   } catch (error) {
     console.error(chalk.red("❌ Build failed."));
