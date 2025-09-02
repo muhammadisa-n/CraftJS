@@ -52,6 +52,6 @@ COPY --from=build /usr/src/app/prisma ./prisma
 COPY --from=build /usr/src/app/.env ./
 COPY --from=build /usr/src/app/logs ./build/logs
 
-EXPOSE 3000
+EXPOSE 4444
 
 CMD ["node", "build/main.js"]

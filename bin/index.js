@@ -80,9 +80,9 @@ NODE_ENV="development"
 TZ="Asia/Jakarta"
 DATETIME_FORMAT="dd-MM-yyyy HH:mm:ss"
 DATABASE_URL="mysql://root:@localhost:3306/${projectName}"
-BASE_URL="http://localhost:3000"
-BASE_API_URL="http://localhost:3000/api"
-PORT=3000
+BASE_URL="http://localhost:4444"
+BASE_API_URL="http://localhost:4444/api"
+PORT=4444
 JWT_SECRET=
 `;
 

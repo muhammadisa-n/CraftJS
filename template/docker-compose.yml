@@ -4,5 +4,5 @@ services:
     image: craft_js_image
     build: .
     ports:
-      - "3000:3000"
+      - "4444:4444"
     restart: always
